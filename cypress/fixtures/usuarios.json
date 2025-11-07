@@ -1,0 +1,20 @@
+{
+  "novoUsuario": {
+    "nome": "Teste",
+    "sobrenome": "Automacao",
+    "email": "teste.automacao@ebac.com.br",
+    "senha": "Teste@123456",
+    "telefone": "11999999999",
+    "empresa": "EBAC",
+    "endereco": "Rua Teste",
+    "numero": "123",
+    "complemento": "Apto 45",
+    "cidade": "São Paulo",
+    "estado": "São Paulo",
+    "cep": "01234-567"
+  },
+  "usuarioExistente": {
+    "email": "teste@ebac.com.br",
+    "senha": "Teste@123"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "cypress-ebac-shop",
+  "version": "1.0.0",
+  "description": "Automação E2E com Cypress - EBAC Shop",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:chrome": "cypress run --browser chrome",
+    "cy:run:headed": "cypress run --headed",
+    "test": "cypress run --spec 'cypress/e2e/fluxo-completo.cy.js'",
+    "test:debug": "cypress run --spec 'cypress/e2e/debug/**/*.cy.js'"
+  },
+  "keywords": ["cypress", "e2e", "testing"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.6.0"
+  }
+}
