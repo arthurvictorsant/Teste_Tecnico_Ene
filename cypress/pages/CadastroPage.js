@@ -2,7 +2,7 @@ class CadastroPage {
   elements = {
     campoEmail: '#reg_email',
     campoSenha: '#reg_password',
-    btnRegistrar: 'button[name="register"]',
+    btnRegistrar: 'input.button[name="register"][value="Register"]',
     campoNome: '#billing_first_name',
     campoSobrenome: '#billing_last_name',
     campoEmpresa: '#billing_company',

@@ -72,7 +72,7 @@ class CheckoutPage {
   obterNumeroPedido() {
     cy.get(this.elements.numeroPedido).invoke('text').then((numero) => {
       cy.wrap(numero).as('numeroPedido');
-      cy.log(`✅ Pedido criado com sucesso! Número: ${numero}`);
+      cy.log(` Pedido criado com sucesso! Número: ${numero}`);
     });
   }
 }

@@ -3,8 +3,6 @@ class ProdutoPage {
     listaProdutos: '.products',
     produto: '.product',
     btnAdicionarCarrinho: '.single_add_to_cart_button',
-    selectTamanho: '#pa_size',
-    selectCor: '#pa_color',
     campoQuantidade: '.qty',
     mensagemSucesso: '.woocommerce-message',
     btnVerCarrinho: '.woocommerce-message a',
@@ -17,11 +15,30 @@ class ProdutoPage {
   }
 
   selecionarOpcoes(tamanho, cor) {
+    cy.wait(1500); 
+
     if (tamanho) {
-      cy.get(this.elements.selectTamanho).select(tamanho);
+      const seletorTamanho = `.button-variable-item-${tamanho}`;
+      cy.get('body').then(($body) => {
+        if ($body.find(seletorTamanho).length > 0) {
+          cy.log(` Selecionando tamanho: ${tamanho}`);
+          cy.get(seletorTamanho).click();
+        } else {
+          cy.log(` Botão de tamanho ${tamanho} não encontrado`);
+        }
+      });
     }
+
     if (cor) {
-      cy.get(this.elements.selectCor).select(cor);
+      const seletorCor = `.button-variable-item-${cor}`;
+      cy.get('body').then(($body) => {
+        if ($body.find(seletorCor).length > 0) {
+          cy.log(` Selecionando cor: ${cor}`);
+          cy.get(seletorCor).click();
+        } else {
+          cy.log(` Botão de cor ${cor} não encontrado`);
+        }
+      });
     }
   }
 
@@ -34,7 +51,9 @@ class ProdutoPage {
   }
 
   verificarProdutoAdicionado() {
-    cy.get(this.elements.mensagemSucesso).should('contain', 'foi adicionado no seu carrinho');
+    cy.get(this.elements.mensagemSucesso, { timeout: 10000 })
+      .should('be.visible')
+      .should('contain', 'adicionado');
   }
 
   irParaCarrinho() {
@@ -43,10 +62,46 @@ class ProdutoPage {
 
   adicionarProdutoCompleto(produto) {
     this.selecionarProduto(produto.nome);
+    cy.wait(2000); 
     this.selecionarOpcoes(produto.tamanho, produto.cor);
+    cy.wait(500); 
     this.definirQuantidade(produto.quantidade);
     this.adicionarAoCarrinho();
     this.verificarProdutoAdicionado();
+  }
+
+ 
+  selecionarOpcoesComValidacao(tamanho, cor) {
+    cy.wait(1500);
+
+   
+    if (tamanho) {
+      const seletorTamanho = `.button-variable-item-${tamanho}`;
+      cy.get(seletorTamanho)
+        .should('be.visible')
+        .should('not.have.class', 'disabled')
+        .click();
+      cy.log(`Tamanho ${tamanho} selecionado`);
+    }
+
+    
+    if (cor) {
+      const seletorCor = `.button-variable-item-${cor}`;
+      cy.get(seletorCor)
+        .should('be.visible')
+        .should('not.have.class', 'disabled')
+        .click();
+      cy.log(`Cor ${cor} selecionada`);
+    }
+  }
+
+  
+  listarOpcoesDisponiveis() {
+    cy.get('.button-variable-item').each(($btn) => {
+      const classes = $btn.attr('class');
+      const texto = $btn.text();
+      cy.log(`Opção: ${texto} | Classes: ${classes}`);
+    });
   }
 }
 

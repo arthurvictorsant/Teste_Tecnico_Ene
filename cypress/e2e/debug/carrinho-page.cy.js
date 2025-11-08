@@ -4,15 +4,15 @@ describe('Debug - CarrinhoPage', () => {
   before(() => {
     cy.visit('/produtos');
     cy.wait(2000);
-    cy.get('.product').first().click();
+    cy.get('.product').eq(1).click();
     cy.wait(1000);
     
     cy.get('body').then(($body) => {
       if ($body.find('#pa_size').length > 0) {
-        cy.get('#pa_size').select(1);
+        cy.get('#pa_size').select(2);
       }
       if ($body.find('#pa_color').length > 0) {
-        cy.get('#pa_color').select(1);
+        cy.get('#pa_color').select(2);
       }
     });
     

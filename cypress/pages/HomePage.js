@@ -1,7 +1,6 @@
 class HomePage {
   elements = {
     logo: '.logo',
-    menuProdutos: '#menu-item-40',
     menuMinhaLista: '#menu-item-41',
     menuMinhaConta: '.icon-user-unfollow',
     campoBusca: '.search-field',
@@ -14,7 +13,7 @@ class HomePage {
   }
 
   irParaProdutos() {
-    cy.get(this.elements.menuProdutos).click();
+    cy.visit('http://lojaebac.ebaconline.art.br/produtos/');
   }
 
   irParaMinhaConta() {
