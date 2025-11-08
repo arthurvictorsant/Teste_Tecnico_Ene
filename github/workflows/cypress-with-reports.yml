@@ -1,13 +1,8 @@
-name: Cypress Tests with Reports
+name: Cypress Tests
 
 on:
   push:
-    branches:
-      - main
-  
-    pull_request:
-    branches:
-      - main
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -22,7 +17,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -31,11 +25,10 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          headed: false
           spec: cypress/e2e/*.cy.js
         continue-on-error: true
 
-      - name: Merge test reports
+      - name: Merge reports
         if: always()
         run: |
           npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json
@@ -43,36 +36,25 @@ jobs:
       - name: Generate HTML report
         if: always()
         run: |
-          npx marge cypress/reports/report.json -o cypress/reports/html --reportTitle "Cypress Test Report" --reportPageTitle "EBAC Shop Tests"
+          npx marge cypress/reports/report.json -o cypress/reports/html
 
-      - name: Upload HTML Report
+      - name: Upload Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: test-report-html
+          name: test-report
           path: cypress/reports/html
-          retention-days: 30
 
       - name: Upload Screenshots
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: screenshots
           path: cypress/screenshots
-          retention-days: 30
 
       - name: Upload Videos
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cypress-videos
+          name: videos
           path: cypress/videos
-          retention-days: 30
-
-      - name: Upload Test Results JSON
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: test-results-json
-          path: cypress/reports/report.json
-          retention-days: 30
