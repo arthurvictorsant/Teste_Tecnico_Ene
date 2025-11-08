@@ -11,6 +11,9 @@
     "test": "cypress run --spec 'cypress/e2e/fluxo-completo.cy.js'",
     "test:all": "cypress run --spec 'cypress/e2e/*.cy.js'"
   },
+  "keywords": ["cypress", "e2e", "testing"],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "cypress": "^13.6.0",
     "mochawesome": "^7.1.3",
