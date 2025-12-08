@@ -3,11 +3,16 @@ const { defineConfig } = require('cypress');
 module.exports = defineConfig({
   reporter: 'mochawesome',
   reporterOptions: {
-    reportDir: 'cypress/reports',
+    reportDir: 'cypress/reports/mochawesome',
     overwrite: false,
-    html: true,
+    html: false,
     json: true,
     timestamp: 'mmddyyyy_HHMMss',
+    reportFilename: '[status]_[datetime]-[name]-report',
+    charts: true,
+    embeddedScreenshots: true,
+    inlineAssets: true,
+    saveAllAttempts: false,
   },
   e2e: {
     baseUrl: 'http://lojaebac.ebaconline.art.br',

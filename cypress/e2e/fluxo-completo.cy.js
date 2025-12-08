@@ -82,4 +82,6 @@ describe('Fluxo Completo - E-commerce EBAC', () => {
       cy.log(` Pedido ${numero} criado com sucesso!`);
     });
   });
+
+  
 });

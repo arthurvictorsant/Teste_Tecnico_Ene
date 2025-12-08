@@ -15,13 +15,6 @@ Projeto de automação de testes end-to-end para a loja virtual EBAC utilizando 
 desafio-cypress-QA/
 ├── cypress/
 │   ├── e2e/
-│   │   ├── debug/
-│   │   │   ├── cadastro-page.cy.js
-│   │   │   ├── carrinho-page.cy.js
-│   │   │   ├── checkout-page.cy.js
-│   │   │   ├── home-page.cy.js
-│   │   │   ├── login-page.cy.js
-│   │   │   └── produto-page.cy.js
 │   │   ├── units/
 │   │   │   ├── cadastro.cy.js
 │   │   │   ├── carrinho.cy.js
@@ -52,70 +45,96 @@ desafio-cypress-QA/
 ## Instalação
 
 ```bash
-git clone https://github.com/arthurvictorsant/desafio-cypress-QA.git
-cd desafio-cypress-QA
+git clone https://github.com/arthurvictorsant/Teste_Tecnico_Ene.git
+cd Teste_Tecnico_Ene
 npm install
 ```
 
 ## Executar Testes
 
-### Modo Interativo
+**IMPORTANTE:** Todos os comandos abaixo geram automaticamente o relatório HTML com vídeos após a execução!
 
-Abre a interface gráfica do Cypress para executar e debugar testes:
-
-```bash
-npx cypress open
-```
-
-### Modo Headless
-
-Executa todos os testes em modo headless (sem interface):
+### Executar fluxo completo (RECOMENDADO)
 
 ```bash
-npx cypress run
+npm test
 ```
 
-### Executar com navegador específico
+Executa o teste E2E completo (`fluxo-completo.cy.js`) e gera relatório automaticamente.
+
+### Executar todos os testes
 
 ```bash
-npx cypress run --browser chrome
-npx cypress run --browser firefox
-npx cypress run --browser edge
+npm run cy:run
 ```
 
-### Executar spec específico
+Executa todos os testes em modo headless e gera relatório automaticamente.
+
+### Executar com Chrome
 
 ```bash
-npx cypress run --spec "cypress/e2e/cadastro.cy.js"
-npx cypress run --spec "cypress/e2e/login.cy.js"
-npx cypress run --spec "cypress/e2e/fluxo-completo.cy.js"
+npm run cy:run:chrome
 ```
 
-### Executar múltiplos specs
+Executa todos os testes no navegador Chrome e gera relatório automaticamente.
+
+### Executar mostrando o navegador
 
 ```bash
-npx cypress run --spec "cypress/e2e/cadastro.cy.js,cypress/e2e/login.cy.js"
+npm run cy:run:headed
 ```
 
-### Executar em modo headed (visualizar execução)
+Executa os testes mostrando o navegador (modo headed) e gera relatório automaticamente.
+
+### Executar todos os specs
 
 ```bash
-npx cypress run --headed
+npm run test:all
 ```
 
-## Gerar Relatórios
+Executa todos os arquivos de teste e gera relatório automaticamente.
 
-Os relatórios são gerados automaticamente após a execução dos testes.
+## Relatórios
 
-### Gerar relatório HTML
+### Localização do Relatório
+
+Após executar qualquer um dos comandos acima, o relatório HTML estará disponível em:
+
+```
+cypress/reports/html/report.html
+```
+
+### Conteúdo do Relatório
+
+O relatório inclui automaticamente:
+- ✅ Estatísticas e gráficos de execução
+- ✅ Vídeos completos dos testes
+- ✅ Screenshots de falhas (quando ocorrem)
+- ✅ Detalhes de cada teste executado
+- ✅ Tempo de execução e status
+
+### Comandos Extras
+
+Limpar relatórios antigos:
 
 ```bash
-npx cypress run
-npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json
-npx marge cypress/reports/report.json -o cypress/reports/html
+npm run clean:reports
 ```
 
-O relatório será gerado em `cypress/reports/html/index.html`
+Gerar relatório manualmente (caso já tenha executado os testes):
+
+```bash
+npm run cy:report
+```
+
+### Configuração do Mochawesome
+
+Os relatórios incluem:
+- Gráficos e estatísticas visuais
+- Screenshots embutidas em falhas
+- Vídeos da execução
+- Timestamp personalizado
+- Todos os assets em um único arquivo HTML
 
 ## Page Object Model
 
@@ -351,11 +370,16 @@ const { defineConfig } = require('cypress');
 module.exports = defineConfig({
   reporter: 'mochawesome',
   reporterOptions: {
-    reportDir: 'cypress/reports',
+    reportDir: 'cypress/reports/mochawesome',
     overwrite: false,
-    html: true,
+    html: false,
     json: true,
     timestamp: 'mmddyyyy_HHMMss',
+    reportFilename: '[status]_[datetime]-[name]-report',
+    charts: true,
+    embeddedScreenshots: true,
+    inlineAssets: true,
+    saveAllAttempts: false,
   },
   e2e: {
     baseUrl: 'http://lojaebac.ebaconline.art.br',

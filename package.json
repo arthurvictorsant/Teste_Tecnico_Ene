@@ -4,12 +4,15 @@
   "description": "Automação E2E com Cypress - EBAC Shop",
   "scripts": {
     "cy:open": "cypress open",
-    "cy:run": "cypress run",
-    "cy:run:chrome": "cypress run --browser chrome",
-    "cy:run:headed": "cypress run --headed",
-    "cy:report": "npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json && npx marge cypress/reports/report.json -o cypress/reports/html",
-    "test": "cypress run --spec 'cypress/e2e/fluxo-completo.cy.js'",
-    "test:all": "cypress run --spec 'cypress/e2e/*.cy.js'"
+    "cy:run": "cypress run && npm run cy:report",
+    "cy:run:chrome": "cypress run --browser chrome && npm run cy:report",
+    "cy:run:headed": "cypress run --headed && npm run cy:report",
+    "cy:report": "npx mochawesome-merge cypress/reports/mochawesome/*.json -o cypress/reports/mochawesome/report.json && npx marge cypress/reports/mochawesome/report.json -f report -o cypress/reports/html --reportTitle \"Relatório de Testes E2E - EBAC Shop\" --reportPageTitle \"EBAC Shop Test Report\" && npm run copy:videos",
+    "copy:videos": "xcopy /E /I /Y cypress\\videos cypress\\reports\\html\\videos 2>nul || cp -r cypress/videos cypress/reports/html/ 2>/dev/null || echo Videos copiados",
+    "posttest": "npm run cy:report",
+    "test": "cypress run --spec 'cypress/e2e/fluxo-completo.cy.js' && npm run cy:report",
+    "test:all": "cypress run && npm run cy:report",
+    "clean:reports": "rm -rf cypress/reports || del /s /q cypress\\reports"
   },
   "keywords": ["cypress", "e2e", "testing"],
   "author": "",
