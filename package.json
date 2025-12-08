@@ -14,13 +14,20 @@
     "test:all": "cypress run && npm run cy:report",
     "clean:reports": "rm -rf cypress/reports || del /s /q cypress\\reports"
   },
-  "keywords": ["cypress", "e2e", "testing"],
+  "keywords": [
+    "cypress",
+    "e2e",
+    "testing"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "cypress": "^13.6.0",
     "mochawesome": "^7.1.3",
-    "mochawesome-merge": "^4.3.0",
+    "mochawesome-merge": "^4.4.1",
     "mochawesome-report-generator": "^6.2.0"
+  },
+  "dependencies": {
+    "cypress-docgen": "^1.0.1"
   }
 }

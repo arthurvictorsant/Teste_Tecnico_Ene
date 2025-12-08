@@ -26,7 +26,7 @@ jobs:
         run: npm install
 
       - name: Create reports directory
-        run: mkdir -p cypress/reports
+        run: mkdir -p cypress/reports/mochawesome
 
       - name: Run Cypress tests
         run: npx cypress run --browser chrome --spec "cypress/e2e/*.cy.js"
@@ -35,21 +35,24 @@ jobs:
       - name: Check if reports exist
         id: check_reports
         run: |
-          if ls cypress/reports/*.json 1> /dev/null 2>&1; then
+          if ls cypress/reports/mochawesome/*.json 1> /dev/null 2>&1; then
             echo "reports_exist=true" >> $GITHUB_OUTPUT
+            echo "=== JSON files found ==="
+            ls -lh cypress/reports/mochawesome/*.json
           else
             echo "reports_exist=false" >> $GITHUB_OUTPUT
+            echo "=== No JSON files found ==="
           fi
 
       - name: Merge test reports
         if: always() && steps.check_reports.outputs.reports_exist == 'true'
         run: |
-          npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json
+          npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/report.json
 
       - name: Create empty report if no tests ran
         if: always() && steps.check_reports.outputs.reports_exist == 'false'
         run: |
-          echo '{"stats":{"tests":0,"passes":0,"failures":0},"results":[]}' > cypress/reports/report.json
+          echo '{"stats":{"suites":0,"tests":0,"passes":0,"failures":0,"pending":0,"start":"","end":"","duration":0,"testsRegistered":0,"passPercent":0,"pendingPercent":0,"other":0,"hasOther":false,"skipped":0,"hasSkipped":false},"results":[]}' > cypress/reports/report.json
 
       - name: Generate HTML report
         if: always()
