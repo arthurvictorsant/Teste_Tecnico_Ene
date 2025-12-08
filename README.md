@@ -7,6 +7,7 @@ Projeto de automação de testes end-to-end para a loja virtual EBAC utilizando 
 - Cypress 13.6.0
 - JavaScript (Node.js 20)
 - Mochawesome (relatórios HTML)
+- Cypress Docgen (documentação automática de testes)
 - GitHub Actions (CI/CD)
 
 ## Estrutura do Projeto
@@ -93,6 +94,42 @@ npm run test:all
 ```
 
 Executa todos os arquivos de teste e gera relatório automaticamente.
+
+## Documentação de Testes
+
+### Documentação Automática com Cypress Docgen
+
+O projeto utiliza o **cypress-docgen** para gerar automaticamente a documentação dos testes em formato Markdown.
+
+#### Visualizar documentação
+
+A documentação completa de todos os casos de teste está disponível em:
+
+```
+spec-docs.md
+```
+
+Este arquivo é gerado automaticamente e contém:
+- ✅ Lista de todos os arquivos de teste
+- ✅ Estrutura de describes e contexts
+- ✅ Todos os casos de teste (33 testes individuais em 6 arquivos)
+- ✅ Organização por funcionalidade
+- ✅ Sumário com totais de testes e arquivos
+
+#### Gerar documentação manualmente
+
+```bash
+npx cypress-docgen
+```
+
+A documentação será atualizada no arquivo [spec-docs.md](spec-docs.md) na raiz do projeto.
+
+### Benefícios
+
+- Documentação sempre sincronizada com os testes
+- Visão geral rápida de toda cobertura de testes
+- Facilita onboarding de novos membros da equipe
+- Útil para apresentações e revisões de qualidade
 
 ## Relatórios
 
