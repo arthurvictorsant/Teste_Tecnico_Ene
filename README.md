@@ -41,6 +41,8 @@ desafio-cypress-QA/
 │       └── cypress-with-reports.yml
 ├── cypress.config.js
 └── package.json
+└── spec-docs.md
+└── passo-a-passo-gherkin.md
 ```
 
 ## Instalação
@@ -454,4 +456,5 @@ npm install
 rm -rf node_modules package-lock.json
 npm install
 ```
+
 
